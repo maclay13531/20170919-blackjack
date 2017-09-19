@@ -128,13 +128,26 @@ while main_game_on == True:
 		game_on = True
 		while game_on == True:
 			user_option = raw_input("Choose to STAND or to HIT. Press 1 to STAND or Press 2 to HIT.")
-			if(user_option == "2"):
+			if(user_option == "2" and game_on == True):
 				print "\n"
 				print "%s chose to hit!" % player_name
 				hit_me_card = random.randint(0, (len(Main_deck) - 1))
 				hit_me_value = Main_deck[hit_me_card]
 				total_player_value += hit_me_value
 				print "%s received a card with a value of %d!" % (player_name, hit_me_value)
+				print ">>><<<-------->>><<< %s's new total hand value is %d! >>><<<-------->>><<<" % (player_name, total_player_value)
+				while total_player_value < 21:
+					user_option_repeat = raw_input("Do you want to hit again? Press 1 to STAND or Press 2 to HIT.")
+					if(user_option_repeat == "2"):
+						print "\n"
+						print "%s chose to hit again!" % player_name
+						hit_me_card_repeat = random.randint(0, (len(Main_deck) - 1))
+						hit_me_value_repeat = Main_deck[hit_me_card_repeat]
+						total_player_value += hit_me_value_repeat
+						print "%s received a card with a value of %d!" % (player_name, hit_me_value_repeat)
+						print ">>><<<-------->>><<< %s's new total hand value is %d! >>><<<-------->>><<<" % (player_name, total_player_value)
+					elif(user_option_repeat == "1"):
+						break
 				print ">>><<<-------->>><<< %s's new total hand value is %d! >>><<<-------->>><<<" % (player_name, total_player_value)
 				if(total_player_value == 21 and total_dealer_value < 21):
 					print "\n"
@@ -144,18 +157,22 @@ while main_game_on == True:
 					print "\n"
 					print "Total hand value higher than 21. Sorry you LOST..."
 					game_on = False
+					break
 				if(total_player_value > total_dealer_value):
 					difference = total_player_value - total_dealer_value
 					print "\n"
 					print "Your hand value is %s greater than the dealer's hand value!! You win!!!" % difference
 					game_on = False
+					break
 				elif(total_player_value < total_dealer_value):
 					print "\n"
 					print "Hand value lower than the dealer's hand value. Sorry you LOST..."
 					game_on = False
+					break
 				elif(total_player_value == total_dealer_value):
 					print "\n"
 					print "Equal hand values! No winner on this round."
+					break
 			elif(user_option == "1" and game_on == True):
 				print "\n"
 				print "%s chose to stand." % player_name
@@ -163,23 +180,28 @@ while main_game_on == True:
 				if(total_player_value == 21 and total_dealer_value < 21):
 					print "You win!!"
 					game_on = False
+					break
 				elif(total_player_value > 21):
 					print "\n"
 					print "Total hand value higher than 21. Sorry you LOST..."
 					game_on = False
+					break
 				if(total_player_value > total_dealer_value):
 					difference = total_player_value - total_dealer_value
 					print "\n"
 					print "Your hand value is %s greater than the dealer's hand value!! You win!!!" % difference
 					game_on = False
+					break
 				elif(total_player_value < total_dealer_value):
 					print "\n"
 					print "Hand value lower than the dealer's hand value. Sorry you LOST..."
 					game_on = False
+					break
 				elif(total_player_value == total_dealer_value):
 					print "\n"
 					print "Equal hand values! No winner on this round."
 					game_on = False
+					break
 		play_again = str(raw_input("Play again? YES or NO?"))
 		if(play_again == "YES" or play_again == "yes"):
 			pass
