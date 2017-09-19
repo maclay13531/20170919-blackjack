@@ -1,4 +1,5 @@
 import random
+import os
 
 print "\n"
 
@@ -23,6 +24,8 @@ rule = raw_input("Type Y to read the rules")
 print "\n"
 
 if(rule == "Y" or rule == "y"):
+	print "\($ $)/   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     \($ $)/"
+	print "\n"
 	print "1)	Blackjack may be played with one to eight decks of 52-card decks."
 	print "\n"
 	print "2)	Aces may be counted as 1 or 11 points. EX: Heart of Ace = 1 point or 11 points."
@@ -47,24 +50,15 @@ if(rule == "Y" or rule == "y"):
 	print "\n"
 	print "NOTE: 'BLACKJACK' is the best hand, consisting of an ace and any 10-point card."
 	print "NOTE: 'BLACKJACK' outranks all other 21-point hands" 
-
+	print "\n"
+	print "\($ $)/   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~     \($ $)/"
 print "\n"
 
 print "Great! We are ready!"
 
-raw_input("Press ENTER to start the game!")
-
-print "\n"				
-
-print "\($ $)/   $$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$   \($ $)/"
-
 print "\n"
 
-print "			  $$$~~~   NEW ROUND   ~~~$$$					"
-
-print "\n"
-
-print "The dealer is dealing and you are ready to make your next move!"
+print "The dealer is ready and we can start the game as soon as you are ready to make your next move!"
 
 print "\n"
 
@@ -95,6 +89,7 @@ main_game_on = True
 
 while main_game_on == True:
 	for i in range(0, 10):
+		raw_input("Press ENTER to start the game!")
 		print "\n"
 		print "---- PLAYER INFORMATION ----"
 		random_num_one = random.randint(0, (len(Main_deck) - 1))
@@ -123,16 +118,44 @@ while main_game_on == True:
 		print "---- PROGRESS ----"
 		print "Choose your option!"
 		print "Option 1: Stand. Press 1"
-		print "Option 2: Hit. Press 2"
+		print "Option 2: Hit.   Press 2"
 		print "\n"
 		game_on = True
 		while game_on == True:
+			if(player_first_initial_card == 11):
+				ace_value = int(raw_input("Do you want the ACE value to be 1 or 11? Type 1 or 11."))
+				if(ace_value == 1):
+					player_first_initial_card = 1
+					print "The first card value is %d!" % ace_value
+					total_player_value -= 10
+					print ">>><<<-------->>><<< %s's new total hand value is %d! >>><<<-------->>><<<" % (player_name, total_player_value)
+				elif(ace_value == 11):
+					player_first_initial_card = 11
+					print "The first card value is %d!" % ace_value
+			if(player_second_initial_card == 11):
+				second_ace_value = int(raw_input("Do you want the ACE value to be 1 or 11? Type 1 or 11."))
+				if(second_ace_value == 1):
+					player_second_initial_card = 1
+					print "The first card value is %d!" % second_ace_value
+					total_player_value -= 10
+					print ">>><<<-------->>><<< %s's new total hand value is %d! >>><<<-------->>><<<" % (player_name, total_player_value)
+				elif(second_ace_value == 11):
+					player_second_initial_card = 11
+					print "The second card value is %d!" % second_ace_value
 			user_option = raw_input("Choose to STAND or to HIT. Press 1 to STAND or Press 2 to HIT.")
 			if(user_option == "2" and game_on == True):
 				print "\n"
 				print "%s chose to hit!" % player_name
 				hit_me_card = random.randint(0, (len(Main_deck) - 1))
 				hit_me_value = Main_deck[hit_me_card]
+				if(hit_me_value == 11):
+					third_ace_value = int(raw_input("Do you want the ACE value to be 1 or 11? Type 1 or 11."))
+					if(third_ace_value == 1):
+						hit_me_value = 1
+						print "The ACE card value is %d!" % hit_me_value
+					elif(ace_value == 11):
+						hit_me_value = 11
+						print "The ACE card value is %d!" % hit_me_value
 				total_player_value += hit_me_value
 				print "%s received a card with a value of %d!" % (player_name, hit_me_value)
 				print ">>><<<-------->>><<< %s's new total hand value is %d! >>><<<-------->>><<<" % (player_name, total_player_value)
@@ -141,8 +164,17 @@ while main_game_on == True:
 					if(user_option_repeat == "2"):
 						print "\n"
 						print "%s chose to hit again!" % player_name
+						print "\n"
 						hit_me_card_repeat = random.randint(0, (len(Main_deck) - 1))
 						hit_me_value_repeat = Main_deck[hit_me_card_repeat]
+						if(hit_me_value_repeat == 11):
+							fourth_ace_value = int(raw_input("Do you want the ACE value to be 1 or 11? Type 1 or 11."))
+							if(fourth_ace_value == 1):
+								hit_me_value = 1
+								print "The ACE card value is %d!" % hit_me_value
+							elif(fourth_ace_value == 11):
+								hit_me_value = 11
+								print "The ACE card value is %d!" % hit_me_value
 						total_player_value += hit_me_value_repeat
 						print "%s received a card with a value of %d!" % (player_name, hit_me_value_repeat)
 						print ">>><<<-------->>><<< %s's new total hand value is %d! >>><<<-------->>><<<" % (player_name, total_player_value)
@@ -152,26 +184,31 @@ while main_game_on == True:
 				if(total_player_value == 21 and total_dealer_value < 21):
 					print "\n"
 					print "You win!!"
+					print " <<<   WON   >>>"
 					game_on = False
 				elif(total_player_value > 21):
 					print "\n"
 					print "Total hand value higher than 21. Sorry you LOST..."
+					print " <<<   LOST   >>>"
 					game_on = False
 					break
 				if(total_player_value > total_dealer_value):
 					difference = total_player_value - total_dealer_value
 					print "\n"
 					print "Your hand value is %s greater than the dealer's hand value!! You win!!!" % difference
+					print " <<<   WON   >>>"
 					game_on = False
 					break
 				elif(total_player_value < total_dealer_value):
 					print "\n"
 					print "Hand value lower than the dealer's hand value. Sorry you LOST..."
+					print " <<<   LOST   >>>"
 					game_on = False
 					break
 				elif(total_player_value == total_dealer_value):
 					print "\n"
 					print "Equal hand values! No winner on this round."
+					print " <<<   TIE   >>>"
 					break
 			elif(user_option == "1" and game_on == True):
 				print "\n"
@@ -179,30 +216,35 @@ while main_game_on == True:
 				print ">>><<<-------->>><<< Total hand value is still %d. >>><<<-------->>><<<" % total_player_value
 				if(total_player_value == 21 and total_dealer_value < 21):
 					print "You win!!"
+					print " <<<   WON   >>>"
 					game_on = False
 					break
 				elif(total_player_value > 21):
 					print "\n"
 					print "Total hand value higher than 21. Sorry you LOST..."
+					print " <<<   LOST   >>>"
 					game_on = False
 					break
 				if(total_player_value > total_dealer_value):
 					difference = total_player_value - total_dealer_value
 					print "\n"
 					print "Your hand value is %s greater than the dealer's hand value!! You win!!!" % difference
+					print " <<<   WON   >>>"
 					game_on = False
 					break
 				elif(total_player_value < total_dealer_value):
 					print "\n"
 					print "Hand value lower than the dealer's hand value. Sorry you LOST..."
+					print " <<<   LOST   >>>"
 					game_on = False
 					break
 				elif(total_player_value == total_dealer_value):
 					print "\n"
 					print "Equal hand values! No winner on this round."
+					print " <<<   TIE   >>>"
 					game_on = False
 					break
-		play_again = str(raw_input("Play again? YES or NO?"))
+		play_again = str(raw_input("Play again? Press any KEY to continue! Insert NO to quit."))
 		if(play_again == "YES" or play_again == "yes"):
 			pass
 		elif(play_again == "NO" or play_again == "no"):
@@ -210,8 +252,11 @@ while main_game_on == True:
 			main_game_on = False
 			game_on = False
 			break
+		else:
+			pass
+		os.system('clear')
 		print "\n"				
-		print "\($ $)/   $$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$   \($ $)/"
+		print "\($ $)/   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   \($ $)/"
 		print "\n"
 		print "			  $$$~~~   NEW ROUND   ~~~$$$					"
 
