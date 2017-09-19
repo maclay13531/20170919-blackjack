@@ -54,6 +54,14 @@ print "Great! We are ready!"
 
 raw_input("Press ENTER to start the game!")
 
+print "\n"				
+
+print "\($ $)/   $$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$   \($ $)/"
+
+print "\n"
+
+print "			  $$$~~~   NEW ROUND   ~~~$$$					"
+
 print "\n"
 
 print "The dealer is dealing and you are ready to make your next move!"
@@ -82,14 +90,10 @@ for i in range(0, len(Main_deck)):
 		Main_deck[i] = 10
 	for i in xrange(12, len(Main_deck), 13):
 		Main_deck[i] = 10
-	
-print Main_deck
 
-print "DISCLAIMER!! If in live-stage, the developer will make sure that the table above is not visible! It's shown for design purpose right now!"
+main_game_on = True
 
-game_on = True
-
-while game_on == True:
+while main_game_on == True:
 	for i in range(0, 10):
 		print "\n"
 		print "---- PLAYER INFORMATION ----"
@@ -114,16 +118,17 @@ while game_on == True:
 		total_dealer_value = dealer_first_initial_card + dealer_second_initial_card
 		print ">>><<<-------- Dealer's total hand value is %d. -------->>><<<" % total_dealer_value
 		print "\n"
-		while total_player_value <= 22:
-			print "---- PLAYER   ----"
-			print "----   IN     ----"
-			print "---- PROGRESS ----"
-			print "Choose your option!"
-			print "Option 1: Stand. Press 1"
-			print "Option 2: Hit. Press 2"
-			print "\n"
+		print "---- PLAYER   ----"
+		print "----   IN     ----"
+		print "---- PROGRESS ----"
+		print "Choose your option!"
+		print "Option 1: Stand. Press 1"
+		print "Option 2: Hit. Press 2"
+		print "\n"
+		game_on = True
+		while game_on == True:
 			user_option = raw_input("Choose to STAND or to HIT. Press 1 to STAND or Press 2 to HIT.")
-			if(user_option == "2" and game_on == True):
+			if(user_option == "2"):
 				print "\n"
 				print "%s chose to hit!" % player_name
 				hit_me_card = random.randint(0, (len(Main_deck) - 1))
@@ -134,48 +139,23 @@ while game_on == True:
 				if(total_player_value == 21 and total_dealer_value < 21):
 					print "\n"
 					print "You win!!"
-					play_again = str(raw_input("Play again? YES or NO?"))
-					if(play_again == "YES" or play_again == "yes"):
-						break
-						game_on = True
-					elif(play_again == "NO" or play_again == "no"):
-						print "Hope to see you again soon!"
-						game_on = False
-						break
+					game_on = False
 				elif(total_player_value > 21):
 					print "\n"
 					print "Total hand value higher than 21. Sorry you LOST..."
-					play_again = str(raw_input("Play again? YES or NO?"))
-					if(play_again == "YES" or play_again == "yes"):
-						break
-						game_on = True
-					elif(play_again == "NO" or play_again == "no"):
-						print "Hope to see you again soon!"
-						game_on = False
-						break
+					game_on = False
 				if(total_player_value > total_dealer_value):
 					difference = total_player_value - total_dealer_value
 					print "\n"
 					print "Your hand value is %s greater than the dealer's hand value!! You win!!!" % difference
-					play_again = str(raw_input("Play again? YES or NO?"))
-					if(play_again == "YES" or play_again == "yes"):
-						break
-						game_on = True
-					elif(play_again == "NO" or play_again == "no"):
-						print "Hope to see you again soon!"
-						game_on = False
-						break
+					game_on = False
 				elif(total_player_value < total_dealer_value):
 					print "\n"
 					print "Hand value lower than the dealer's hand value. Sorry you LOST..."
-					play_again = str(raw_input("Play again? YES or NO?"))
-					if(play_again == "YES" or play_again == "yes"):
-						break
-						game_on = True
-					elif(play_again == "NO" or play_again == "no"):
-						print "Hope to see you again soon!"
-						game_on = False
-						break
+					game_on = False
+				elif(total_player_value == total_dealer_value):
+					print "\n"
+					print "Equal hand values! No winner on this round."
 			elif(user_option == "1" and game_on == True):
 				print "\n"
 				print "%s chose to stand." % player_name
@@ -183,52 +163,35 @@ while game_on == True:
 				if(total_player_value == 21 and total_dealer_value < 21):
 					print "You win!!"
 					game_on = False
-					play_again = str(raw_input("Play again? YES or NO?"))
-					if(play_again == "YES" or play_again == "yes"):
-						break
-						game_on = True
-					elif(play_again == "NO" or play_again == "no"):
-						print "Hope to see you again soon!"
-						game_on = False
-						break
 				elif(total_player_value > 21):
 					print "\n"
 					print "Total hand value higher than 21. Sorry you LOST..."
-					play_again = str(raw_input("Play again? YES or NO?"))
-					if(play_again == "YES" or play_again == "yes"):
-						break
-						game_on = True
-					elif(play_again == "NO" or play_again == "no"):
-						print "Hope to see you again soon!"
-						game_on = False
-						break
+					game_on = False
 				if(total_player_value > total_dealer_value):
 					difference = total_player_value - total_dealer_value
 					print "\n"
 					print "Your hand value is %s greater than the dealer's hand value!! You win!!!" % difference
-					play_again = str(raw_input("Play again? YES or NO?"))
-					if(play_again == "YES" or play_again == "yes"):
-						break
-						game_on = True
-					elif(play_again == "NO" or play_again == "no"):
-						print "Hope to see you again soon!"
-						game_on = False
-						break
+					game_on = False
 				elif(total_player_value < total_dealer_value):
 					print "\n"
 					print "Hand value lower than the dealer's hand value. Sorry you LOST..."
-					play_again = str(raw_input("Play again? YES or NO?"))
-					if(play_again == "YES" or play_again == "yes"):
-						break
-						game_on = True
-					elif(play_again == "NO" or play_again == "no"):
-						print "Hope to see you again soon!"
-						game_on = False
-						break
+					game_on = False
+				elif(total_player_value == total_dealer_value):
+					print "\n"
+					print "Equal hand values! No winner on this round."
+					game_on = False
+		play_again = str(raw_input("Play again? YES or NO?"))
+		if(play_again == "YES" or play_again == "yes"):
+			pass
+		elif(play_again == "NO" or play_again == "no"):
+			print "Hope to see you again soon!"
+			main_game_on = False
+			game_on = False
+			break
 		print "\n"				
 		print "\($ $)/   $$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$~~~$$$   \($ $)/"
 		print "\n"
-		print "			 	 $$$~~~   NEW ROUND   ~~~$$$					"
+		print "			  $$$~~~   NEW ROUND   ~~~$$$					"
 
 
 
